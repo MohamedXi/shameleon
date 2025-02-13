@@ -141,7 +141,7 @@ npm test
 
 The project is hosted on GitHub where you can find the source code, bug reports, and contributions:
 
-[https://github.com/your-username/shameleon-cli](https://github.com/your-username/shameleon-cli)
+[https://github.com/MohamedXi/shameleon](https://github.com/MohamedXi/shameleon)
 
 ---
 
