@@ -1,7 +1,7 @@
 {
   "name": "shameleon-cli",
   "description": "CLI tool for managing development environments dynamically",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Shameleon <mohamed-ismael@outlook.fr>",
   "type": "module",
   "bin": {
@@ -15,10 +15,12 @@
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
     "dotenv": "^16.4.7",
+    "figlet": "^1.8.0",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.3",
+    "@types/figlet": "^1.7.0",
     "@types/node": "^22.13.2",
     "@types/shelljs": "^0.8.15",
     "typescript": "^5.7.3",
