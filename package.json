@@ -1,9 +1,16 @@
 {
   "name": "shameleon-cli",
   "description": "CLI tool for managing development environments dynamically",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "author": "Shameleon <mohamed-ismael@outlook.fr>",
   "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "development",
+    "environments",
+    "dynamic"
+  ],
   "bin": {
     "shameleon": "./dist/bin/shameleon.js"
   },
