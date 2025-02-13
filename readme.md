@@ -76,7 +76,7 @@ shameleon env <client> --node <version> --npm <version> --npm-registry <url> --d
 - **Change the environment for a client "utech" with Node.js v20.11.1 and NPM v10.2.4:**
 
   ```bash
-  shameleon env utech --node 20.11.1 --npm 10.2.4 --npm-registry "http://artifactory-iris.groupement.systeme-u.fr/artifactory/api/npm/npm-registry" --docker-registry "docker.io"
+  shameleon env utech --node 20.11.1 --npm 10.2.4 --npm-registry "https://registry.nmpjs.org" --docker-registry "docker.io"
   ```
 
 ### 2. **Available Options**
