@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander';
 import { switchEnvironment } from '../lib/envManager.js';
 import { Logger } from '../lib/logger.js';
