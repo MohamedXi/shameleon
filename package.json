@@ -1,0 +1,27 @@
+{
+  "name": "shameleon-cli",
+  "description": "A CLI tool for developers to change the environment according current project",
+  "version": "1.0.0",
+  "author": "Shameleon <mohamed-ismael@outlook.fr>",
+  "type": "module",
+  "bin": {
+    "shameleon": "./dist/bin/shameleon.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/bin/shameleon.js"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "shelljs": "^0.8.5",
+    "undici-types": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/node": "^22.13.2",
+    "@types/shelljs": "^0.8.15",
+    "typescript": "^5.7.3"
+  }
+}
