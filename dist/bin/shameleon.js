@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import figlet from 'figlet';
 import { switchEnvironment } from '../lib/envManager.js';
 import { Logger } from '../lib/logger.js';
 const program = new Command();
@@ -9,19 +8,6 @@ program
     .description('🦎 Shameleon: Flexible Environment Switcher CLI')
     .version('1.0.0')
     .helpOption('-h, --help', 'Display help information for Shameleon');
-function showWelcomeMessage() {
-    figlet('Shameleon', (err, data) => {
-        if (err) {
-            console.log('Error generating logo:', err);
-            return;
-        }
-        console.log(data);
-        console.log('\nWelcome to Shameleon CLI!');
-        console.log('Installation complete. You can now use the `shameleon` command.');
-        console.log('Run `shameleon --help` to see available commands.\n');
-    });
-}
-showWelcomeMessage();
 program
     .command('env <client>')
     .description('Switch to a specific environment dynamically')

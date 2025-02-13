@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/bin/shameleon.js"
+    "start": "node dist/bin/shameleon.js",
+    "postinstall": "node dist/bin/showWelcomeMessage.js"
   },
   "dependencies": {
     "chalk": "^5.4.1",
