@@ -1,6 +1,6 @@
-# 🦎 **Shameleon-cli** - Flexible Environment Switcher CLI
+# 🦎 **Hopla-cli** - Flexible Environment Switcher CLI
 
-**Shameleon-cli** is a command-line interface (CLI) tool designed to allow developers to quickly configure their development environments. It allows you to dynamically switch Node.js versions, update NPM, configure NPM and Docker registries, all from a simple command-line interface.
+**Hopla-cli** is a command-line interface (CLI) tool designed to allow developers to quickly configure their development environments. It allows you to dynamically switch Node.js versions, update NPM, configure NPM and Docker registries, all from a simple command-line interface.
 
 ---
 
@@ -8,23 +8,23 @@
 
 ### 1. **Global Installation via npm**
 
-The easiest way to install **shameleon-cli** is via npm. Open your terminal and run the following command to install it globally:
+The easiest way to install **hopla-cli** is via npm. Open your terminal and run the following command to install it globally:
 
 ```bash
-npm install -g shameleon-cli
+npm install -g hopla-cli
 ```
 
-This will install **shameleon-cli** and make the `shameleon` command available in your terminal.
+This will install **hopla-cli** and make the `hopla` command available in your terminal.
 
 ### 2. **Installation from Source**
 
-If you prefer to install **shameleon-cli** from the source code or contribute to it, here are the steps:
+If you prefer to install **hopla-cli** from the source code or contribute to it, here are the steps:
 
 1. Clone the GitHub repository:
 
    ```bash
-   git clone https://github.com/your-username/shameleon-cli.git
-   cd shameleon-cli
+   git clone https://github.com/MohamedXi/hopla-cli.git
+   cd hopla-cli
    ```
 
 2. Install the necessary dependencies:
@@ -39,7 +39,7 @@ If you prefer to install **shameleon-cli** from the source code or contribute to
    npm run build
    ```
 
-4. Use `npm link` to link **shameleon-cli** to your local environment (this makes `shameleon` available as if it were globally installed):
+4. Use `npm link` to link **hopla-cli** to your local environment (this makes `hopla` available as if it were globally installed):
 
    ```bash
    npm link
@@ -47,10 +47,10 @@ If you prefer to install **shameleon-cli** from the source code or contribute to
 
 ### 3. **Test the Installation**
 
-Once installed, you can test **shameleon-cli** by running the following command to see if everything is working correctly:
+Once installed, you can test **hopla-cli** by running the following command to see if everything is working correctly:
 
 ```bash
-shameleon --help
+hopla --help
 ```
 
 This will display the available options and commands.
@@ -61,14 +61,14 @@ This will display the available options and commands.
 
 ### Main Command
 
-To use **shameleon-cli**, run the `shameleon` command followed by the specific command you want to execute.
+To use **hopla-cli**, run the `hopla` command followed by the specific command you want to execute.
 
 ### 1. **Environment Switching (Command `env`)**
 
-The main command of **shameleon-cli** is used to change Node.js versions, update NPM, configure registries, and log into Docker registries. Use it like this:
+The main command of **hopla-cli** is used to change Node.js versions, update NPM, configure registries, and log into Docker registries. Use it like this:
 
 ```bash
-shameleon env <client> --node <version> --npm <version> --npm-registry <url> --docker-registry <url>
+hopla env <client> --node <version> --npm <version> --npm-registry <url> --docker-registry <url>
 ```
 
 #### Examples
@@ -76,7 +76,7 @@ shameleon env <client> --node <version> --npm <version> --npm-registry <url> --d
 - **Change the environment for a client "utech" with Node.js v20.11.1 and NPM v10.2.4:**
 
   ```bash
-  shameleon env utech --node 20.11.1 --npm 10.2.4 --npm-registry "https://registry.nmpjs.org" --docker-registry "docker.io"
+  hopla env utech --node 20.11.1 --npm 10.2.4 --npm-registry "https://registry.nmpjs.org" --docker-registry "docker.io"
   ```
 
 ### 2. **Available Options**
@@ -94,11 +94,11 @@ shameleon env <client> --node <version> --npm <version> --npm-registry <url> --d
 
 ### 1. **Clone the Project**
 
-If you want to contribute or make changes to **shameleon-cli**, start by cloning the repository from GitHub:
+If you want to contribute or make changes to **hopla-cli**, start by cloning the repository from GitHub:
 
 ```bash
-git clone https://github.com/your-username/shameleon-cli.git
-cd shameleon-cli
+git clone https://github.com/MohamedXi/hopla-cli.git
+cd hopla-cli
 ```
 
 ### 2. **Install Dependencies**
@@ -141,7 +141,7 @@ npm test
 
 The project is hosted on GitHub where you can find the source code, bug reports, and contributions:
 
-[https://github.com/MohamedXi/shameleon](https://github.com/MohamedXi/shameleon)
+[https://github.com/MohamedXi/hopla](https://github.com/MohamedXi/hopla)
 
 ---
 
@@ -153,7 +153,7 @@ This project is licensed under the MIT License. You can find more details in the
 
 ## 🔧 **Contributing**
 
-Contributions are welcome! If you would like to contribute to **shameleon-cli**, here's how to do it:
+Contributions are welcome! If you would like to contribute to **hopla-cli**, here's how to do it:
 
 1. Fork the repository from GitHub.
 2. Clone your fork locally.
@@ -165,10 +165,10 @@ Contributions are welcome! If you would like to contribute to **shameleon-cli**,
 
 ## 🚧 **Known Issues**
 
-If you encounter any issues during installation or usage of **shameleon-cli**, check the "Issues" section on GitHub to see if the problem has already been reported. If not, feel free to open a new issue.
+If you encounter any issues during installation or usage of **hopla-cli**, check the "Issues" section on GitHub to see if the problem has already been reported. If not, feel free to open a new issue.
 
 ---
 
 ## ✅ **Summary**
 
-### **shameleon-cli** is a powerful tool for dynamically managing development environments. Its simple installation via npm or from the source code allows developers to quickly configure their tools. With flexible commands, you can switch Node.js versions, configure NPM and Docker registries, and ensure all your tools are up to date.
+### **hopla-cli** is a powerful tool for dynamically managing development environments. Its simple installation via npm or from the source code allows developers to quickly configure their tools. With flexible commands, you can switch Node.js versions, configure NPM and Docker registries, and ensure all your tools are up to date.

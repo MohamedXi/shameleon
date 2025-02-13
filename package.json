@@ -1,8 +1,8 @@
 {
-  "name": "shameleon-cli",
+  "name": "hopla-cli",
   "description": "CLI tool for managing development environments dynamically",
   "version": "0.1.0",
-  "author": "Shameleon <mohamed-ismael@outlook.fr>",
+  "author": "Hopla <mohamed-ismael@outlook.fr>",
   "type": "module",
   "license": "MIT",
   "keywords": [
@@ -12,11 +12,11 @@
     "dynamic"
   ],
   "bin": {
-    "shameleon": "./dist/bin/shameleon.js"
+    "hopla": "./dist/bin/hopla.js"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/bin/shameleon.js",
+    "start": "node dist/bin/hopla.js",
     "postinstall": "node dist/bin/showWelcomeMessage.js"
   },
   "dependencies": {

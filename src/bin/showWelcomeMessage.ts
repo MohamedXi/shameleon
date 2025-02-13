@@ -4,8 +4,7 @@ import figlet from 'figlet';
 import { Logger } from '../lib/logger.js';
 
 function showWelcomeMessage() {
-  process.stdout.write('Generating Shameleon logo...\n');
-  figlet('Shameleon', (err: Error | null, data: string | undefined) => {
+  figlet('Hopla', (err: Error | null, data: string | undefined) => {
     if (err) {
       process.stdout.write('Error generating logo: ' + err + '\n');
       return;
@@ -17,11 +16,11 @@ function showWelcomeMessage() {
 
     process.stdout.write(`
       =========================================
-         🦎 Welcome to Shameleon CLI! 🎉
+         Welcome to Hopla CLI! 🎉
       =========================================
 
       ✅ Installation complete!
-      👉 Run 'shameleon --help' to get started.
+      👉 Run 'hopla --help' to get started.
 
     `);
     Logger.info('Welcome message displayed.');

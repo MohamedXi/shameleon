@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import * as path from 'path';
 import { switchEnvironment } from '../lib/envManager.js';
 import { Logger } from '../lib/logger.js';
 import { EnvOptions } from '../types/options.js';
 
+const packageJson = require(path.resolve(__dirname, '../package.json'));
+
+const version = packageJson.version;
+
 const program = new Command();
 
 program
-  .name('shameleon')
-  .description('🦎 Shameleon: Flexible Environment Switcher CLI')
-  .version('1.0.0')
-  .helpOption('-h, --help', 'Display help information for Shameleon');
+  .name('Hopla')
+  .description('Hopla is a flexible environment switcher CLI')
+  .version(version)
+  .helpOption('-h, --help', 'Display help information for Hopla');
 
 program
   .command('env <client>')

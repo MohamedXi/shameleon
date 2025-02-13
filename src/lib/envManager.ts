@@ -140,5 +140,5 @@ export function switchEnvironment(client: string, options: EnvOptions) {
     loginDockerRegistry(options.dockerRegistry);
   }
 
-  Logger.success(`[Shameleon] Environment ${client} configured successfully!`);
+  Logger.success(`[Hopla] Environment ${client} configured successfully!`);
 }
