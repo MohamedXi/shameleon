@@ -6,13 +6,13 @@ function showWelcomeMessage() {
       console.log('Error generating logo:', err);
       return;
     }
+
     if (data) {
       console.log(data);
     }
-    console.log('\nWelcome to Shameleon CLI!');
-    console.log(
-      'Installation complete. You can now use the `shameleon` command.'
-    );
+
+    console.log('\n🦎 Shameleon: Flexible Environment Switcher CLI\n');
+    console.log('Use the --help flag to display available commands.\n');
   });
 }
 
