@@ -172,7 +172,3 @@ If you encounter any issues during installation or usage of **shameleon-cli**, c
 ## ✅ **Summary**
 
 ### **shameleon-cli** is a powerful tool for dynamically managing development environments. Its simple installation via npm or from the source code allows developers to quickly configure their tools. With flexible commands, you can switch Node.js versions, configure NPM and Docker registries, and ensure all your tools are up to date.
-
----
-
-This complete documentation covers all the necessary steps for installing, using, and developing **shameleon-cli**. It should be sufficient for users to understand how to install and use the tool effectively. 😊
