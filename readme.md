@@ -1,4 +1,4 @@
-# 🦎 **Hopla-cli** - Flexible Environment Switcher CLI
+# 🦎 **Hopla-cli** - Flexible environment switcher CLI
 
 **Hopla-cli** is a command-line interface (CLI) tool designed to allow developers to quickly configure their development environments. It allows you to dynamically switch Node.js versions, update NPM, configure NPM and Docker registries, and now manage Java versions, all from a simple command-line interface.
 
@@ -6,7 +6,7 @@
 
 ## 🚀 **Installation**
 
-### 1. **Global Installation via npm**
+### 1. **Global installation via npm**
 
 The easiest way to install **hopla-cli** is via npm. Open your terminal and run the following command to install it globally:
 
@@ -45,7 +45,7 @@ If you prefer to install **hopla-cli** from the source code or contribute to it,
    npm link
    ```
 
-### 3. **Test the Installation**
+### 3. **Test the installation**
 
 Once installed, you can test **hopla-cli** by running the following command to see if everything is working correctly:
 
@@ -63,7 +63,7 @@ This will display the available options and commands.
 
 To use **hopla-cli**, run the `hopla` command followed by the specific command you want to execute.
 
-### 1. **Environment Switching (Command `env`)**
+### 1. **Environment switching (Command `env`)**
 
 The main command of **hopla-cli** is used to change Node.js versions, update NPM, configure registries, and log into Docker registries. You can now also manage Java versions using **SDKMAN!**.
 
@@ -85,11 +85,11 @@ hopla env <client> --node <version> --npm <version> --npm-registry <url> --docke
   hopla env xyz --node 18.0.0 --npm 8.1.2 --npm-registry "https://registry.npmjs.org" --docker-registry "docker.io" --java 11.0.11-adpt
   ```
 
-### 2. **Available Options**
+### 2. **Available options**
 
 | Option                    | Description                                                                                                                 |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `--node <version>`        | Specifies the Node.js version to install (e.g., `14.17.3`)                                                                  |
+| `--node <version>`        | Specifies the node.js version to install (e.g., `14.17.3`)                                                                  |
 | `--npm <version>`         | Specifies the NPM version to use (e.g., `7.24.0`)                                                                           |
 | `--npm-registry <url>`    | Sets the NPM registry URL (e.g., `https://registry.npmjs.org`)                                                              |
 | `--docker-registry <url>` | Sets the Docker registry URL for login (e.g., `docker.io`)                                                                  |

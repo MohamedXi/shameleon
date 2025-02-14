@@ -14,16 +14,31 @@ program
   .name('Hopla')
   .description('Hopla is a flexible environment switcher CLI')
   .version('0.1.1')
-  .helpOption('-h, --help', 'Display help information for Hopla');
+  .helpOption('-h, --help', 'Display help for command');
 
 program
   .command('env <client>')
   .description('Switch to a specific environment dynamically')
-  .option('--java <version>', 'Specify Java version')
-  .option('--node <version>', 'Specify Node.js version')
-  .option('--npm <version>', 'Specify NPM version')
-  .option('--npm-registry <url>', 'Specify NPM registry')
-  .option('--docker-registry <url>', 'Specify Docker registry')
+  .option(
+    '--java <version>',
+    'Specifies the Java version to install and switch to. Use SDKMAN! version identifiers (e.g., `17.0.14-amzn`, `11.0.11-adpt`)'
+  )
+  .option(
+    '--node <version>',
+    'Specifies the node.js version to install (e.g., `14.17.3`)'
+  )
+  .option(
+    '--npm <version>',
+    'Specifies the NPM version to use (e.g., `7.24.0`)'
+  )
+  .option(
+    '--npm-registry <url>',
+    'Sets the NPM registry URL (e.g., `https://registry.npmjs.org`)'
+  )
+  .option(
+    '--docker-registry <url>',
+    'Sets the Docker registry URL for login (e.g., `docker.io`)'
+  )
   .action((client: string, options: EnvOptions) => {
     Logger.info(`🔧 Configuring environment for: ${client}\n`);
     switchEnvironment(client, options);
