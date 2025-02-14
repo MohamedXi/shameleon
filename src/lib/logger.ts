@@ -14,6 +14,6 @@ export class Logger {
   }
 
   static error(message: string) {
-    console.error(chalk.red(`❌ ${message}`));
+    console.error(chalk.red(`✖ ${message}`));
   }
 }

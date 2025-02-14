@@ -10,6 +10,6 @@ export class Logger {
         console.log(chalk.yellow(`⚠ ${message}`));
     }
     static error(message) {
-        console.error(chalk.red(`❌ ${message}`));
+        console.error(chalk.red(`✖ ${message}`));
     }
 }

@@ -1,5 +1,41 @@
 import shell from 'shelljs';
 import { Logger } from './logger.js';
+function sdkCommand(command) {
+    return `source "$HOME/.sdkman/bin/sdkman-init.sh" && sdk ${command}`;
+}
+function installSdkman() {
+    if (!shell.test('-d', `${process.env.HOME}/.sdkman`)) {
+        Logger.info('Installing SDKMAN! for Java version management...');
+        if (shell.exec('curl -s "https://get.sdkman.io" | bash', { silent: false })
+            .code !== 0) {
+            Logger.error('Failed to install SDKMAN!');
+            process.exit(1);
+        }
+        shell.exec('source "$HOME/.sdkman/bin/sdkman-init.sh"');
+        Logger.success('SDKMAN! installed successfully');
+    }
+    else {
+        Logger.info('SDKMAN! already installed');
+    }
+}
+function installJavaVersion(javaVersion) {
+    Logger.info(`Installing Java ${javaVersion}...`);
+    if (shell.exec(sdkCommand(`install java ${javaVersion}`), { silent: false })
+        .code !== 0) {
+        Logger.error(`Failed to install Java ${javaVersion}`);
+        process.exit(1);
+    }
+    Logger.success(`Java ${javaVersion} installed successfully`);
+}
+function setJavaVersion(javaVersion) {
+    Logger.info(`Switching to Java ${javaVersion}...`);
+    if (shell.exec(sdkCommand(`use java ${javaVersion}`), { silent: false })
+        .code !== 0) {
+        Logger.error(`Failed to switch to Java ${javaVersion}`);
+        process.exit(1);
+    }
+    Logger.success(`Java version switched to ${javaVersion}`);
+}
 /**
  * Installs the Node.js version manager (n) if it is not already installed.
  *
@@ -12,12 +48,16 @@ import { Logger } from './logger.js';
  * - The process will exit with code 1 if the installation of `n` fails.
  */
 function installNodeVersionManager() {
-    if (shell.exec('command -v n > /dev/null 2>&1').code !== 0) {
-        Logger.info('Installing Node.js version manager (n)...');
-        if (shell.exec('npm install -g n').code !== 0) {
-            Logger.error('Failed to install "n". Please install it manually.');
+    Logger.info('Installing Node.js version manager (n)...');
+    if (!shell.which('n')) {
+        if (shell.exec('npm install -g n', { silent: false }).code !== 0) {
+            Logger.error('Failed to install Node.js version manager (n)');
             process.exit(1);
         }
+        Logger.success('Node.js version manager (n) installed successfully');
+    }
+    else {
+        Logger.info('Node.js version manager (n) already installed');
     }
 }
 /**
@@ -37,6 +77,7 @@ function configureNodeEnvironment(nodeVersion) {
     shell.exec(`export N_PREFIX=${nPrefix}`);
     shell.env['PATH'] = `${nPrefix}/bin:${shell.env['PATH']}`;
     shell.exec(`export PATH=${nPrefix}/bin:$PATH`);
+    Logger.info(`Switching to Node.js v${nodeVersion}...`);
     if (shell.exec(`n ${nodeVersion}`).code !== 0) {
         Logger.error(`Failed to switch to Node.js v${nodeVersion}`);
         process.exit(1);
@@ -60,7 +101,7 @@ function configureNodeEnvironment(nodeVersion) {
  */
 function updateNpm(npmVersion) {
     Logger.info(`Updating NPM to v${npmVersion}...`);
-    if (shell.exec(`npm install -g npm@${npmVersion}`).code !== 0) {
+    if (shell.exec(`npm install -g npm@${npmVersion}`, { silent: false }).code !== 0) {
         Logger.error(`Failed to update NPM to v${npmVersion}`);
         process.exit(1);
     }
@@ -78,7 +119,7 @@ function updateNpm(npmVersion) {
  */
 function setNpmRegistry(npmRegistry) {
     Logger.info(`Setting NPM registry to ${npmRegistry}...`);
-    if (shell.exec(`npm set registry ${npmRegistry}`).code !== 0) {
+    if (shell.exec(`npm set registry ${npmRegistry}`, { silent: false }).code !== 0) {
         Logger.error(`Failed to set NPM registry`);
         process.exit(1);
     }
@@ -92,7 +133,7 @@ function setNpmRegistry(npmRegistry) {
  */
 function loginDockerRegistry(dockerRegistry) {
     Logger.info(`Logging into Docker registry ${dockerRegistry}...`);
-    if (shell.exec(`docker login ${dockerRegistry}`).code !== 0) {
+    if (shell.exec(`docker login ${dockerRegistry}`, { silent: false }).code !== 0) {
         Logger.error(`Failed to log into Docker registry`);
         process.exit(1);
     }
@@ -113,9 +154,13 @@ function loginDockerRegistry(dockerRegistry) {
 export function switchEnvironment(client, options) {
     Logger.info(`Configuring environment for: ${client}`);
     if (options.node) {
-        Logger.info(`Installing Node.js v${options.node}...`);
         installNodeVersionManager();
         configureNodeEnvironment(options.node);
+    }
+    if (options.java) {
+        installSdkman();
+        installJavaVersion(options.java);
+        setJavaVersion(options.java);
     }
     if (options.npm) {
         updateNpm(options.npm);
@@ -127,4 +172,32 @@ export function switchEnvironment(client, options) {
         loginDockerRegistry(options.dockerRegistry);
     }
     Logger.success(`[Hopla] Environment ${client} configured successfully!`);
+}
+/**
+ * Checks and logs the current environment configuration based on options.
+ *
+ * @param options - The options specifying which configuration values to display.
+ */
+export function checkCurrentEnvironment(options) {
+    if (options.node) {
+        const nodeVersion = shell.exec('node -v', { silent: false }).stdout.trim();
+        Logger.info(`Node.js version: ${nodeVersion}`);
+    }
+    if (options.npm) {
+        const npmVersion = shell.exec('npm -v', { silent: false }).stdout.trim();
+        Logger.info(`NPM version: ${npmVersion}`);
+    }
+    if (options.npmRegistry) {
+        const npmRegistry = shell
+            .exec('npm get registry', { silent: false })
+            .stdout.trim();
+        Logger.info(`NPM registry: ${npmRegistry}`);
+    }
+    if (options.dockerRegistry) {
+        const dockerInfo = shell
+            .exec('docker info 2>/dev/null | grep "Registry"', { silent: false })
+            .stdout.trim();
+        Logger.info(`Docker registry: ${dockerInfo || 'Not logged in'}`);
+    }
+    Logger.success('Environment check completed.');
 }

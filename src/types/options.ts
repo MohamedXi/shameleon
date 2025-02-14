@@ -3,4 +3,5 @@ export interface EnvOptions {
   npm?: string;
   npmRegistry?: string;
   dockerRegistry?: string;
+  java?: string;
 }
