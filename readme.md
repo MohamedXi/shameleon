@@ -1,4 +1,4 @@
-# 🦎 **Hopla-cli** - Flexible environment switcher CLI
+# 🦎 **Hopla-cli** - Flexible Environment Switcher CLI
 
 **Hopla-cli** is a command-line interface (CLI) tool designed to allow developers to quickly configure their development environments. It allows you to dynamically switch Node.js versions, update NPM, configure NPM and Docker registries, and now manage Java versions, all from a simple command-line interface.
 
@@ -65,7 +65,7 @@ To use **hopla-cli**, run the `hopla` command followed by the specific command y
 
 ### 1. **Environment switching (Command `env`)**
 
-The main command of **hopla-cli** is used to change Node.js versions, update NPM, configure registries, and log into Docker registries. You can now also manage Java versions using **SDKMAN!**.
+The main command of **hopla-cli** is used to change Node.js versions, update NPM, configure registries, and log into Docker registries. You can now also manage Java versions using **asdf**.
 
 ```bash
 hopla env <client> --node <version> --npm <version> --npm-registry <url> --docker-registry <url> --java <version>
@@ -73,27 +73,27 @@ hopla env <client> --node <version> --npm <version> --npm-registry <url> --docke
 
 #### Examples
 
-- **Change the environment for a client "default" with Node.js v20.11.1, NPM v10.2.4, and Java 17.0.14 (Amazon Corretto):**
+- **Change the environment for a client "default" with Node.js v22.14.0, NPM v10.8.2, and Java 17.0.14 (Amazon Corretto):**
 
   ```bash
-  hopla env default --node 20.11.1 --npm 10.2.4 --npm-registry "https://registry.npmjs.org" --docker-registry "docker.io" --java 17.0.14-amzn
+  hopla env default --node 22.14.0 --npm 10.8.2 --npm-registry "https://registry.npmjs.org" --docker-registry "docker.io" --java zulu-jre-javafx-17.32.13
   ```
 
 - **Change the environment for a client "xyz" with Node.js v18.0.0, NPM v8.1.2, and Java 11.0.11 (AdoptOpenJDK):**
 
   ```bash
-  hopla env xyz --node 18.0.0 --npm 8.1.2 --npm-registry "https://registry.npmjs.org" --docker-registry "docker.io" --java 11.0.11-adpt
+  hopla env xyz --node 18.0.0 --npm 8.1.2 --npm-registry "https://registry.npmjs.org" --docker-registry "docker.io" --java adoptopenjdk-11.0.11
   ```
 
 ### 2. **Available options**
 
-| Option                    | Description                                                                                                                 |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `--node <version>`        | Specifies the node.js version to install (e.g., `14.17.3`)                                                                  |
-| `--npm <version>`         | Specifies the NPM version to use (e.g., `7.24.0`)                                                                           |
-| `--npm-registry <url>`    | Sets the NPM registry URL (e.g., `https://registry.npmjs.org`)                                                              |
-| `--docker-registry <url>` | Sets the Docker registry URL for login (e.g., `docker.io`)                                                                  |
-| `--java <version>`        | Specifies the Java version to install and switch to. Use SDKMAN! version identifiers (e.g., `17.0.14-amzn`, `11.0.11-adpt`) |
+| Option                    | Description                                                                                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--node <version>`        | Specifies the Node.js version to install (e.g., `14.17.3`)                                                                                       |
+| `--npm <version>`         | Specifies the NPM version to use (e.g., `7.24.0`)                                                                                                |
+| `--npm-registry <url>`    | Sets the NPM registry URL (e.g., `https://registry.npmjs.org`)                                                                                   |
+| `--docker-registry <url>` | Sets the Docker registry URL for login (e.g., `docker.io`)                                                                                       |
+| `--java <version>`        | Specifies the Java version to install and switch to. Use **asdf** version identifiers (e.g., `zulu-jre-javafx-17.32.13`, `adoptopenjdk-11.0.11`) |
 
 ---
 
@@ -105,7 +105,7 @@ To make it easier to configure environments, you can set aliases in your `~/.zsh
 
 ```bash
 # Alias for switching to the default development environment
-alias env_default="hopla env default --node 22.14.0 --npm 10.8.2 --java 17.0.14-amzn --npm-registry 'https://registry.npmjs.org' --docker-registry 'docker.io'"
+alias env_default="hopla env default --node 22.14.0 --npm 10.8.2 --java zulu-jre-javafx-17.32.13 --npm-registry 'https://registry.npmjs.org' --docker-registry 'docker.io'"
 ```
 
 Once you have added this to your `~/.zshrc`, you can reload the configuration by running:
@@ -116,18 +116,18 @@ source ~/.zshrc
 
 Then, running `env_default` in the terminal will configure the environment with the specified versions of Node.js, NPM, and Java.
 
-### Java Versioning with SDKMAN!
+### Java Versioning with asdf
 
-For Java, **hopla-cli** uses SDKMAN! identifiers, which allow you to install and switch to specific versions of Java. Here are some examples of Java version identifiers:
+For Java, **hopla-cli** uses **asdf** version identifiers, which allow you to install and switch to specific versions of Java. Here are some examples of Java version identifiers:
 
-- **Java 17 (Amazon Corretto)**: `17.0.14-amzn`
-- **Java 11 (AdoptOpenJDK)**: `11.0.11-adpt`
-- **OpenJDK 8**: `8.0.302-zulu`
+- **Java 17 (Amazon Corretto)**: `corretto-17.0.14.7.1`
+- **Java 11 (AdoptOpenJDK)**: `adoptopenjdk-11.0.11`
+- **OpenJDK 8**: `openjdk-8.0.302`
 
 You can find the full list of available Java versions by running:
 
 ```bash
-sdk list java
+asdf list-all java
 ```
 
 ---
@@ -213,4 +213,4 @@ If you encounter any issues during installation or usage of **hopla-cli**, check
 
 ## ✅ **Summary**
 
-### **hopla-cli** is a powerful tool for dynamically managing development environments. Its simple installation via npm or from the source code allows developers to quickly configure their tools. With flexible commands, you can switch Node.js versions, configure NPM and Docker registries, manage Java versions using SDKMAN!, and ensure all your tools are up to date.
+### **hopla-cli** is a powerful tool for dynamically managing development environments. Its simple installation via npm or from the source code allows developers to quickly configure their tools. With flexible commands, you can switch Node.js versions, configure NPM and Docker registries, manage Java versions using **asdf**, and ensure all your tools are up to date.

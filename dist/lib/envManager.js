@@ -1,88 +1,85 @@
 import shell from 'shelljs';
 import { Logger } from './logger.js';
-function sdkCommand(command) {
-    return `source "$HOME/.sdkman/bin/sdkman-init.sh" && sdk ${command}`;
+function asdfCommand(command) {
+    return `source "$HOME/.asdf/asdf.sh" && asdf ${command}`;
 }
-function installSdkman() {
-    if (!shell.test('-d', `${process.env.HOME}/.sdkman`)) {
-        Logger.info('Installing SDKMAN! for Java version management...');
-        if (shell.exec('curl -s "https://get.sdkman.io" | bash', { silent: false })
-            .code !== 0) {
-            Logger.error('Failed to install SDKMAN!');
+function installAsdf() {
+    if (!shell.test('-d', `${process.env.HOME}/.asdf`)) {
+        Logger.info('Installing asdf for version management...');
+        if (shell.exec('git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2', { silent: false }).code !== 0) {
+            Logger.error('Failed to install asdf!');
             process.exit(1);
         }
-        shell.exec('source "$HOME/.sdkman/bin/sdkman-init.sh"');
-        Logger.success('SDKMAN! installed successfully');
+        shell.exec('echo ". $HOME/.asdf/asdf.sh" >> ~/.bashrc');
+        shell.exec('echo ". $HOME/.asdf/completions/asdf.bash" >> ~/.bashrc');
+        Logger.success('asdf installed successfully');
     }
     else {
-        Logger.info('SDKMAN! already installed');
+        Logger.info('asdf already installed');
     }
+}
+function installNodeVersion(nodeVersion) {
+    Logger.info(`Installing Node.js ${nodeVersion}...`);
+    if (shell.exec(asdfCommand(`plugin-list | grep nodejs`), { silent: true })
+        .code !== 0) {
+        if (shell.exec(asdfCommand(`plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git`), { silent: false }).code !== 0) {
+            Logger.error(`Failed to add asdf nodejs plugin`);
+            process.exit(1);
+        }
+    }
+    if (shell.exec(asdfCommand(`install nodejs ${nodeVersion}`), { silent: false })
+        .code !== 0) {
+        Logger.error(`Failed to install Node.js ${nodeVersion}`);
+        process.exit(1);
+    }
+    Logger.success(`Node.js ${nodeVersion} installed successfully`);
+}
+function setNodeVersion(nodeVersion) {
+    Logger.info(`Switching to Node.js ${nodeVersion}...`);
+    if (shell.exec(asdfCommand(`global nodejs ${nodeVersion}`), { silent: false })
+        .code !== 0) {
+        Logger.error(`Failed to switch to Node.js ${nodeVersion}`);
+        process.exit(1);
+    }
+    if (shell.exec(asdfCommand(`reshim nodejs`), { silent: false }).code !== 0) {
+        Logger.error(`Failed to reshim Node.js ${nodeVersion}`);
+        process.exit(1);
+    }
+    Logger.success(`Node.js version switched to ${nodeVersion}`);
 }
 function installJavaVersion(javaVersion) {
     Logger.info(`Installing Java ${javaVersion}...`);
-    if (shell.exec(sdkCommand(`install java ${javaVersion}`), { silent: false })
+    // Check if the java plugin is already added
+    if (shell.exec(asdfCommand(`plugin-list | grep java`), { silent: true })
         .code !== 0) {
+        if (shell.exec(asdfCommand(`plugin-add java https://github.com/halcyon/asdf-java.git`), { silent: false }).code !== 0) {
+            Logger.error(`Failed to add asdf java plugin`);
+            process.exit(1);
+        }
+    }
+    const installResult = shell.exec(asdfCommand(`install java ${javaVersion}`), {
+        silent: false,
+    });
+    if (installResult.code !== 0) {
         Logger.error(`Failed to install Java ${javaVersion}`);
+        Logger.info('Fetching available Java versions...');
+        const availableVersions = shell.exec(asdfCommand('list-all java'), {
+            silent: false,
+        }).stdout;
+        Logger.info(`Available Java versions:\n${availableVersions}`);
+        Logger.error('Please run the command again with a valid Java version.');
         process.exit(1);
     }
     Logger.success(`Java ${javaVersion} installed successfully`);
 }
 function setJavaVersion(javaVersion) {
     Logger.info(`Switching to Java ${javaVersion}...`);
-    if (shell.exec(sdkCommand(`use java ${javaVersion}`), { silent: false })
+    if (shell.exec(asdfCommand(`global java ${javaVersion}`), { silent: false })
         .code !== 0) {
         Logger.error(`Failed to switch to Java ${javaVersion}`);
         process.exit(1);
     }
     Logger.success(`Java version switched to ${javaVersion}`);
-}
-/**
- * Installs the Node.js version manager (n) if it is not already installed.
- *
- * This function checks if the `n` command is available on the system. If not, it attempts to install `n` globally using npm.
- * If the installation fails, it logs an error message and exits the process.
- *
- * @remarks
- * - This function uses the `shell` module to execute shell commands.
- * - It also uses a `Logger` to log information and error messages.
- * - The process will exit with code 1 if the installation of `n` fails.
- */
-function installNodeVersionManager() {
-    Logger.info('Installing Node.js version manager (n)...');
-    if (!shell.which('n')) {
-        if (shell.exec('npm install -g n', { silent: false }).code !== 0) {
-            Logger.error('Failed to install Node.js version manager (n)');
-            process.exit(1);
-        }
-        Logger.success('Node.js version manager (n) installed successfully');
-    }
-    else {
-        Logger.info('Node.js version manager (n) already installed');
-    }
-}
-/**
- * Configures the Node.js environment to use a specified version.
- *
- * This function sets up the environment variables and switches to the specified
- * Node.js version using the `n` version manager. It updates the `N_PREFIX` and `PATH`
- * environment variables to ensure the correct Node.js version is used.
- *
- * @param {string} nodeVersion - The version of Node.js to switch to.
- *
- * @throws Will exit the process with code 1 if switching to the specified Node.js version fails.
- */
-function configureNodeEnvironment(nodeVersion) {
-    const nPrefix = `${process.env.HOME}/.n`;
-    shell.env['N_PREFIX'] = nPrefix;
-    shell.exec(`export N_PREFIX=${nPrefix}`);
-    shell.env['PATH'] = `${nPrefix}/bin:${shell.env['PATH']}`;
-    shell.exec(`export PATH=${nPrefix}/bin:$PATH`);
-    Logger.info(`Switching to Node.js v${nodeVersion}...`);
-    if (shell.exec(`n ${nodeVersion}`).code !== 0) {
-        Logger.error(`Failed to switch to Node.js v${nodeVersion}`);
-        process.exit(1);
-    }
-    Logger.success(`Node.js switched to v${nodeVersion}`);
 }
 /**
  * Updates the global NPM version to the specified version.
@@ -153,23 +150,23 @@ function loginDockerRegistry(dockerRegistry) {
  */
 export function switchEnvironment(client, options) {
     Logger.info(`Configuring environment for: ${client}`);
-    if (options.node) {
-        installNodeVersionManager();
-        configureNodeEnvironment(options.node);
-    }
-    if (options.java) {
-        installSdkman();
-        installJavaVersion(options.java);
-        setJavaVersion(options.java);
-    }
-    if (options.npm) {
-        updateNpm(options.npm);
-    }
+    installAsdf();
     if (options.npmRegistry) {
         setNpmRegistry(options.npmRegistry);
     }
     if (options.dockerRegistry) {
         loginDockerRegistry(options.dockerRegistry);
+    }
+    if (options.node) {
+        installNodeVersion(options.node);
+        setNodeVersion(options.node);
+    }
+    if (options.java) {
+        installJavaVersion(options.java);
+        setJavaVersion(options.java);
+    }
+    if (options.npm) {
+        updateNpm(options.npm);
     }
     Logger.success(`[Hopla] Environment ${client} configured successfully!`);
 }
